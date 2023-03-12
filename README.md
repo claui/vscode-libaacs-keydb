@@ -304,6 +304,7 @@ that depends on ………… v………… or higher.)
 
 ## See also
 
+- [libaacs key database file specification, format 1.0](https://code.videolan.org/videolan/libaacs/-/raw/master/KEYDB.cfg)
 - [TextMate language grammars](https://macromates.com/manual/en/language_grammars)
 - Default themes
   [dark_vs](https://github.com/microsoft/vscode/blob/main/extensions/theme-defaults/themes/dark_vs.json)
