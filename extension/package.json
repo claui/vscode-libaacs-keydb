@@ -1,0 +1,49 @@
+{
+  "name": "libaacs-keydb",
+  "version": "0.2.0",
+  "publisher": "claui",
+  "engines": {
+    "vscode": "^1.76.0"
+  },
+  "license": "SEE LICENSE IN README.md",
+  "displayName": "libaacs key database file",
+  "description": "Support for the libaacs key database file (KEYDB.cfg) format",
+  "categories": [],
+  "keywords": [],
+  "preview": true,
+  "main": "build/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "libaacs-keydb.action.showLog",
+        "title": "libaacs key database file: Show extension log"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "keydb-cfg",
+        "scopeName": "text.keydb-cfg",
+        "path": "share/keydb-cfg.tmLanguage.json"
+      }
+    ],
+    "languages": [
+      {
+        "id": "keydb-cfg",
+        "aliases": [
+          "KEYDB.cfg",
+          "libaacs KEYDB.cfg"
+        ],
+        "filenames": [
+          "keydb.cfg",
+          "KEYDB.cfg"
+        ],
+        "configuration": "share/language-configuration.json"
+      }
+    ]
+  },
+  "extensionKind": [
+    "workspace"
+  ],
+  "activationEvents": [],
+  "repository": "github:claui/vscode-libaacs-keydb"
+}

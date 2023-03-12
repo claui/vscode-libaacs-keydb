@@ -1,0 +1,414 @@
+{
+  "name": "keydb-cfg",
+  "scopeName": "text.keydb-cfg",
+  "uuid": "d3e96230-a848-47ea-9df6-0220546f5905",
+  "patterns": [
+    {
+      "comment": "Line comments take precedence before everything else",
+      "include": "#comment"
+    },
+    {
+      "include": "#device-key-entry"
+    },
+    {
+      "include": "#processing-key-entry"
+    },
+    {
+      "include": "#host-certificate-entry"
+    },
+    {
+      "include": "#title-entry"
+    },
+    {
+      "match": ".+",
+      "name": "invalid.illegal.entry"
+    }
+  ],
+  "repository": {
+    "comment": {
+      "match": "((;).*)$",
+      "captures": {
+        "1": {
+          "name": "comment.line.keydb-cfg"
+        },
+        "2": {
+          "name": "punctuation.definition.comment.keydb-cfg"
+        }
+      }
+    },
+    "device-key-entry": {
+      "match": "^(\\|)[ \\t](DK)[ \\t](\\|)([^|]+)(\\|)([^|]+)(\\|)([^|]+)(\\|)([^|;]+)",
+      "captures": {
+        "1": {
+          "name": "punctuation.separator.field"
+        },
+        "2": {
+          "name": "keyword.other.dk strong.dk"
+        },
+        "3": {
+          "name": "punctuation.separator.field"
+        },
+        "4": {
+          "name": "meta.section.dk-entry.with-hexstring.device-key",
+          "patterns": [
+            {
+              "include": "#keyword-device-key"
+            }
+          ]
+        },
+        "5": {
+          "name": "punctuation.separator.field"
+        },
+        "6": {
+          "name": "meta.section.dk-entry.with-hexstring.device-node",
+          "patterns": [
+            {
+              "include": "#keyword-device-node"
+            }
+          ]
+        },
+        "7": {
+          "name": "punctuation.separator.field"
+        },
+        "8": {
+          "name": "meta.section.dk-entry.keyword-and-hexstring.key-uv",
+          "patterns": [
+            {
+              "include": "#keyword-key-uv"
+            }
+          ]
+        },
+        "9": {
+          "name": "punctuation.separator.field"
+        },
+        "10": {
+          "name": "meta.section.dk-entry.keyword-and-hexstring.key-u-mask-shift",
+          "patterns": [
+            {
+              "include": "#keyword-key-u-mask-shift"
+            }
+          ]
+        }
+      }
+    },
+    "entry-data": {},
+    "entry-id": {},
+    "hexstring": {
+      "patterns": [
+        {
+          "match": "0x(?:[ \\n\\r\\t]*[0-9a-fA-F])+",
+          "name": "constant.numeric.hex.keydb-cfg"
+        },
+        {
+          "match": ".+",
+          "name": "invalid.illegal.hexstring"
+        }
+      ]
+    },
+    "host-certificate-entry": {
+      "match": "^(\\|)[ \\t](HC)[ \\t](\\|)([^|]+)(\\|)([^|;]+)",
+      "captures": {
+        "1": {
+          "name": "punctuation.separator.field"
+        },
+        "2": {
+          "name": "keyword.other.hc strong.hc"
+        },
+        "3": {
+          "name": "punctuation.separator.field"
+        },
+        "4": {
+          "name": "meta.section.hc-entry.with-hexstring.host-priv-key",
+          "patterns": [
+            {
+              "include": "#keyword-host-priv-key"
+            }
+          ]
+        },
+        "5": {
+          "name": "punctuation.separator.field"
+        },
+        "6": {
+          "name": "meta.section.hc-entry.with-hexstring.host-cert",
+          "patterns": [
+            {
+              "include": "#keyword-host-cert"
+            }
+          ]
+        }
+      }
+    },
+    "invalid-keyword": {
+      "match": ".+",
+      "name": "invalid.illegal.keyword.keydb-cfg"
+    },
+    "keyword-device-key": {
+      "patterns": [
+        {
+          "match": "[ \\t]+(\\w+)[ \\t]+([^|]+)[ \\t]+",
+          "captures": {
+            "1": {
+              "name": "meta.section.keyword.device-key",
+              "patterns": [
+                {
+                  "match": "DEVICE_KEY",
+                  "name": "entity.other.attribute.device-key.keydb-cfg"
+                },
+                {
+                  "include": "#invalid-keyword"
+                }
+              ]
+            },
+            "2": {
+              "patterns": [
+                {
+                  "include": "#hexstring"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "match": ".+",
+          "name": "invalid.illegal.dk-entry.device-key"
+        }
+      ]
+    },
+    "keyword-device-node": {
+      "patterns": [
+        {
+          "match": "[ \\t]+(\\w+)[ \\t]+([^|]+)[ \\t]+",
+          "captures": {
+            "1": {
+              "name": "meta.section.keyword.device-node",
+              "patterns": [
+                {
+                  "match": "DEVICE_NODE",
+                  "name": "entity.other.attribute.device-node.keydb-cfg"
+                },
+                {
+                  "include": "#invalid-keyword"
+                }
+              ]
+            },
+            "2": {
+              "patterns": [
+                {
+                  "include": "#hexstring"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "match": ".+",
+          "name": "invalid.illegal.dk-entry.device-node"
+        }
+      ]
+    },
+    "keyword-host-cert": {
+      "patterns": [
+        {
+          "match": "[ \\t]+(\\w+)[ \\t]+([^|]+)[ \\t]+",
+          "captures": {
+            "1": {
+              "name": "meta.section.keyword.host-cert",
+              "patterns": [
+                {
+                  "match": "HOST_CERT",
+                  "name": "entity.other.attribute.host-cert.keydb-cfg"
+                },
+                {
+                  "include": "#invalid-keyword"
+                }
+              ]
+            },
+            "2": {
+              "patterns": [
+                {
+                  "include": "#hexstring"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "match": ".+",
+          "name": "invalid.illegal.hc-entry.host-cert"
+        }
+      ]
+    },
+    "keyword-host-priv-key": {
+      "patterns": [
+        {
+          "match": "[ \\t]+(\\w+)[ \\t]+([^|]+)[ \\t]+",
+          "captures": {
+            "1": {
+              "name": "meta.section.keyword.host-priv-key",
+              "patterns": [
+                {
+                  "match": "HOST_PRIV_KEY",
+                  "name": "entity.other.attribute.host-priv-key.keydb-cfg"
+                },
+                {
+                  "include": "#invalid-keyword"
+                }
+              ]
+            },
+            "2": {
+              "patterns": [
+                {
+                  "include": "#hexstring"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "match": ".+",
+          "name": "invalid.illegal.hc-entry.host-priv-key"
+        }
+      ]
+    },
+    "keyword-key-u-mask-shift": {
+      "patterns": [
+        {
+          "match": "[ \\t]+(\\w+)[ \\t]+([^|]+)[ \\t]+",
+          "captures": {
+            "1": {
+              "name": "meta.section.keyword.key-u-mask-shift",
+              "patterns": [
+                {
+                  "match": "KEY_U_MASK_SHIFT",
+                  "name": "entity.other.attribute.key-u-mask-shift.keydb-cfg"
+                },
+                {
+                  "include": "#invalid-keyword"
+                }
+              ]
+            },
+            "2": {
+              "patterns": [
+                {
+                  "include": "#hexstring"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "match": ".+",
+          "name": "invalid.illegal.dk-entry.key-u-mask-shift"
+        }
+      ]
+    },
+    "keyword-key-uv": {
+      "patterns": [
+        {
+          "match": "[ \\t]+(\\w+)[ \\t]+([^|]+)[ \\t]+",
+          "captures": {
+            "1": {
+              "name": "meta.section.keyword.key-uv",
+              "patterns": [
+                {
+                  "match": "KEY_UV",
+                  "name": "entity.other.attribute.key-uv.keydb-cfg"
+                },
+                {
+                  "include": "#invalid-keyword"
+                }
+              ]
+            },
+            "2": {
+              "patterns": [
+                {
+                  "include": "#hexstring"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "match": ".+",
+          "name": "invalid.illegal.dk-entry.key-uv"
+        }
+      ]
+    },
+    "processing-key-entry": {
+      "match": "^(\\|)[ \\t](PK)[ \\t](\\|)[ \\t]+([^|;]+)",
+      "captures": {
+        "1": {
+          "name": "punctuation.separator.field"
+        },
+        "2": {
+          "name": "keyword.other.pk strong.pk"
+        },
+        "3": {
+          "name": "punctuation.separator.field"
+        },
+        "4": {
+          "name": "meta.section.pk-entry.hexstring",
+          "patterns": [
+            {
+              "include": "#hexstring"
+            }
+          ]
+        }
+      }
+    },
+    "title": {
+      "patterns": [
+        {
+          "match": "[^|]+",
+          "name": "string.unquoted.title"
+        }
+      ]
+    },
+    "title-entry": {
+      "match": "^(\\w+)[ \\t](=)[ \\t]([^|]+)(?:(\\|)([^|]+)(\\|)([^|;]+))+",
+      "captures": {
+        "1": {
+          "name": "meta.section.disc-id.hexstring",
+          "patterns": [
+            {
+              "include": "#hexstring"
+            }
+          ]
+        },
+        "2": {
+          "name": "keyword.operator.assignment.keydb-cfg"
+        },
+        "3": {
+          "name": "meta.section.title",
+          "patterns": [
+            {
+              "include": "#title"
+            }
+          ]
+        },
+        "4": {
+          "name": "punctuation.separator.field"
+        },
+        "5": {
+          "name": "meta.section.entry-id",
+          "patterns": [
+            {
+              "include": "#entry-id"
+            }
+          ]
+        },
+        "6": {
+          "name": "punctuation.separator.field"
+        },
+        "7": {
+          "name": "meta.section.entry-data.$5",
+          "patterns": [
+            {
+              "include": "#entry-data"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
