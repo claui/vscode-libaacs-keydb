@@ -19,6 +19,12 @@
         "title": "libaacs key database file: Show extension log"
       }
     ],
+    "configurationDefaults": {
+      "[keydb-cfg]": {
+        "editor.unicodeHighlight.ambiguousCharacters": false,
+        "editor.wordWrap": "off"
+      }
+    },
     "grammars": [
       {
         "language": "keydb-cfg",
