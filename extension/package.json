@@ -21,6 +21,7 @@
     ],
     "configurationDefaults": {
       "[keydb-cfg]": {
+        "editor.largeFileOptimizations": false,
         "editor.unicodeHighlight.ambiguousCharacters": false,
         "editor.wordWrap": "off"
       }
