@@ -67,16 +67,21 @@ the following numbering scheme:
 
 ### Publishing to the Marketplace
 
-After deciding on a target version, run:
+1. Check out the `main` branch and make sure it is pristine.
 
-- `git checkout main`
-- `yarn login`
-- `yarn publish-vsce [--pre-release] [version]`
+2. Decide on a new version number under which to publish the package.
 
-The `yarn publish-vsce` command first updates the version number in
-[extension/package.json](./extension/package.json) to the given
-version. Then it packages and publishes the extension to the VS Code
-Extension Marketplace.
+3. Edit the `extension/share/dist/package.json` manifest to reflect
+   the new version number.
+
+4. Run: `yarn package`
+
+5. If necessary, run: `yarn workspace extension login`
+
+6. Run: `yarn workspace extension publish-vsce [--pre-release]`
+
+The final `yarn […] publish-vsce` command packages and publishes the
+extension to the VS Code Extension Marketplace.
 
 ### Publishing to the Open VSX Registry
 
@@ -96,13 +101,16 @@ Follow these steps to publish the extension to the Open VSX Registry:
 
 2. Make sure you have published the extension to the VS Code
    Extension Marketplace. This ensures that the version number has
-   been updated and that a `.vsix` file has been generated.
+   been updated.
 
-3. Run the `yarn ovsx publish` command with the correct
-   `extension/[…].vsix` file as the sole argument. Example in Bash:
+3. Run `yarn package` to generate a `.vsix` package.
+
+4. Run the `yarn […] ovsx publish` command with the correct
+   `extension/dist/[…].vsix` file as the sole argument.  
+   Example in Bash:
 
    ```bash
-   yarn ovsx publish "extension/libaacs-keydb-$(jq -r .version extension/package.json).vsix"
+   yarn workspace extension ovsx publish "dist/libaacs-keydb-$(jq -r .version extension/share/dist/package.json).vsix"
    ```
 
 ### Committing, tagging and creating a GitHub prerelease and PR
@@ -115,13 +123,13 @@ pull request against `main`:
 (
   set -eux
   git checkout -b publish
-  tag="$(jq -r '"v" + .version' extension/package.json)"
+  tag="$(jq -r '"v" + .version' extension/share/dist/package.json)"
   echo "New tag: ${tag}"
   git add -u
   git commit --edit -m "Release ${tag}"
   git tag "${tag}"
   git push --tags
-  gh release create --generate-notes --prerelease "${tag}"
+  gh release create --draft --generate-notes --prerelease "${tag}"
   gh pr create --fill --web
 )
 ```
@@ -168,7 +176,7 @@ dependencies. That includes the `@types`, `@typescript-eslint`, and
 `yarn upgrade-yarn-itself` section).
 
 Also excluded is the `@types/vscode` package. For details, see
-section _Upgrading the VS Code API_.
+section _Upgrading the VS Code API version_.
 
 ### yarn upgrade-yarn-itself
 
@@ -340,4 +348,4 @@ Copyright (c) 2023 Claudia Pellegrino
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
-For a copy of the License, see [LICENSE.txt](LICENSE.txt).
+For a copy of the License, see [LICENSE](LICENSE).
