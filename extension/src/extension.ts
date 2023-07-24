@@ -1,6 +1,7 @@
 import {
   commands,
   DocumentSelector,
+  ExtensionContext,
   languages,
   LanguageStatusItem,
 } from "vscode";
@@ -13,14 +14,15 @@ const statusItem: LanguageStatusItem = languages.createLanguageStatusItem(
   languageSelector,
 );
 
-export function activate() {
+export function activate(context: ExtensionContext) {
   commands.registerCommand("libaacs-keydb.action.showLog", log.show, log);
   statusItem.command = {
     command: "libaacs-keydb.action.showLog",
     title: "Show extension log",
   };
 
-  log.info("Extension startup successful");
+  const version = context.extension.packageJSON.version as string;
+  log.info(`Extension v${version} startup successful`);
   return {};
 }
 

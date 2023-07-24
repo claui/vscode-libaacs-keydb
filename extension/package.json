@@ -1,56 +1,37 @@
 {
-  "name": "libaacs-keydb",
-  "version": "0.2.0",
-  "publisher": "claui",
-  "engines": {
-    "vscode": "^1.76.0"
-  },
+  "name": "extension",
   "license": "SEE LICENSE IN README.md",
-  "displayName": "libaacs key database file",
-  "description": "Support for the libaacs key database file (KEYDB.cfg) format",
-  "categories": [],
-  "keywords": [],
-  "preview": true,
-  "main": "build/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "libaacs-keydb.action.showLog",
-        "title": "libaacs key database file: Show extension log"
-      }
-    ],
-    "configurationDefaults": {
-      "[keydb-cfg]": {
-        "editor.largeFileOptimizations": false,
-        "editor.unicodeHighlight.ambiguousCharacters": false,
-        "editor.wordWrap": "off"
-      }
-    },
-    "grammars": [
-      {
-        "language": "keydb-cfg",
-        "scopeName": "text.keydb-cfg",
-        "path": "share/keydb-cfg.tmLanguage.json"
-      }
-    ],
-    "languages": [
-      {
-        "id": "keydb-cfg",
-        "aliases": [
-          "KEYDB.cfg",
-          "libaacs KEYDB.cfg"
-        ],
-        "filenames": [
-          "keydb.cfg",
-          "KEYDB.cfg"
-        ],
-        "configuration": "share/language-configuration.json"
-      }
-    ]
+  "comments": {
+    "devDependencies": {
+      "@types/node": "Keep this pinned to the Node.js major version that ships with VS Code.",
+      "@types/vscode": "For details, see section *Upgrading the VS Code API version* in `README.md`."
+    }
   },
-  "extensionKind": [
-    "workspace"
-  ],
-  "activationEvents": [],
-  "repository": "github:claui/vscode-libaacs-keydb"
+  "devDependencies": {
+    "@types/node": "<=16.x",
+    "@types/vscode": "=1.76",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vscode/vsce": "^2.19.0",
+    "del-cli": "^5.0.0",
+    "esbuild": "^0.18.12",
+    "esbuild-copy-static-files": "^0.1.0",
+    "eslint": "^8.45.0",
+    "ovsx": "^0.8.2",
+    "semver": "^7.5.4",
+    "source-map-support": "^0.5.21",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  },
+  "scripts": {
+    "ci-package": "mkdir -p dist && yarn run -B vsce package --no-dependencies --yarn --cwd build --githubBranch main/extension --out dist",
+    "clean": "yarn run -B del build dist types work",
+    "compile": "yarn run -B tsc && contrib/build.mjs",
+    "lint": "yarn run -B eslint --max-warnings 0 src",
+    "login": "yarn run -B vsce login claui",
+    "package": "yarn clean && yarn compile && yarn ci-package",
+    "publish-vsce": "yarn run -B vsce publish --no-dependencies --yarn --cwd build --githubBranch main/extension",
+    "repatch": "git add -- package.json && yarn patch-commit -s \"$1\" && git checkout -- package.json && yarn clean-install",
+    "vscode:prepublish": "yarn clean && yarn compile"
+  }
 }
