@@ -15,6 +15,10 @@ await esbuild.build({
       dest: 'build/',
     }),
     copyStaticFiles({
+      src: 'share/language/',
+      dest: 'build/language/',
+    }),
+    copyStaticFiles({
       src: 'LICENSE.txt',
       dest: 'build/LICENSE.txt',
     }),
