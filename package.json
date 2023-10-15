@@ -29,7 +29,7 @@
     "upgrade-yarn-itself": "printf >&2 '%s\\n\\t%s\\n' 'Run the following command line manually:' 'yarn set version stable && yarn install && yarn clean-install' && false"
   },
   "resolutions": {
-    "@vscode/vsce@^2.21.0": "patch:@vscode/vsce@npm:2.21.0#./.yarn/patches/@vscode-vsce-npm-2.21.0.patch"
+    "@vscode/vsce@^2.21.1": "patch:@vscode/vsce@npm:2.21.1#./.yarn/patches/@vscode-vsce-npm-2.21.1.patch"
   },
   "packageManager": "yarn@3.6.4",
   "workspaces": [
