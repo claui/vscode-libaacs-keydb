@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@yarnpkg/sdks": "<=2.x || ^3.0.0",
-    "typescript": "^5.1.6"
+    "typescript": "^5.2.2"
   },
   "scripts": {
     "clean": "yarn workspace extension clean",
@@ -29,9 +29,9 @@
     "upgrade-yarn-itself": "printf >&2 '%s\\n\\t%s\\n' 'Run the following command line manually:' 'yarn set version stable && yarn install && yarn clean-install' && false"
   },
   "resolutions": {
-    "@vscode/vsce@^2.19.0": "patch:@vscode/vsce@npm:2.19.0#./.yarn/patches/@vscode-vsce-npm-2.19.0-c171711221.patch"
+    "@vscode/vsce@^2.21.0": "patch:@vscode/vsce@npm:2.21.0#./.yarn/patches/@vscode-vsce-npm-2.21.0.patch"
   },
-  "packageManager": "yarn@3.6.1",
+  "packageManager": "yarn@3.6.4",
   "workspaces": [
     "extension"
   ]
