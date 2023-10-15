@@ -1,6 +1,6 @@
 {
   "name": "libaacs-keydb",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "publisher": "claui",
   "engines": {
     "vscode": "^1.76.0"
